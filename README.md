@@ -1,7 +1,14 @@
 # Set up environment & install software
 ### Run these commands in the root directory of this package
 
-## 1. Install fundamental packages & R
+## 1. Make the following directories for output & temp file writing (data & imputations) and storage of imputation software (tools).
+```bash
+mkdir data
+mkdir tools
+mkdir imputations
+```
+
+## 2. Install fundamental packages & R
 ```bash
 VAR=$PWD
 export VAR
@@ -11,7 +18,7 @@ sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install default-jdk
 ```
 
-## 2. Install R-packages
+## 3. Install R-packages
 ```bash
 sudo -i
 R
@@ -29,12 +36,12 @@ y
 exit
 ```
 
-## 3. Install git
+## 4. Install git
 ```bash
 sudo apt-get install git
 ```
 
-## 4. Download and unpack imputation related software. Confirm that the version is appropriate for the OS of the server.
+## 5. Download and unpack imputation related software. Confirm that the version is appropriate for the OS of the server.
 
 #### Impute2
 ```bash
@@ -75,18 +82,18 @@ mv plink* Plink
 cd $VAR
 ```
 
-## 5. I have already downloaded and preprocessed all reference data. It is located in the 'ref' directory. 
+## 6. I have already downloaded and preprocessed all reference data. It is located in the 'ref' directory. 
+#### 'ref' directory to be uploaded...
 
+## 7. Edit config file for cron job. Imputation is setup to run as a cron job so that it is automated. Parameters for the cron job are given in the file 'misc_files/config.r'. 
 
-## 6. Edit config file for cron job. Imputation is setup to run as a cron job so that it is automated. Parameters for the cron job are given in the file 'misc_files/config.r'. 
-
-## 7. Setup a cron job so imputation is performed every hour (you can change this to occur more or less frequently). Imputation is only performed on files that have been processed after upload.
+## 8. Setup a cron job so imputation is performed every hour (you can change this to occur more or less frequently). Imputation is only performed on files that have been processed after upload.
 ```bash
 crontab -e 
 50 * * * * Rscript scripts/imputation_cron_job.R > misc_files/cron_logs/`date +\%Y\%m\%d\%H\%M\%S`-impute-cron.log 2>&1
 ```
 
-## 8. Link file upload to the script 'step1.sh'. This script runs an R script that preprocesses raw DNA data file from 23andme, Ancestry DNA, or My Heritage.
+## 9. Link file upload to the script 'step1.sh'. This script runs an R script that preprocesses raw DNA data file from 23andme, Ancestry DNA, or My Heritage.
 ```bash
 ./step1.sh
 ```
