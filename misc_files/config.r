@@ -9,10 +9,10 @@ maxImputationsInQueue <- 10
 serverRole <- "Hub"
 
 # Change this to your hub IP address for cron job
-hubAddress <- "54.187.201.139"
+hubAddress <- "172.31.47.91"
 
 # Change this to your user name for ssh/scp user to your server
-admin <- ''
+admin <- "ec2-user"
 
 if(!exists("maxImputations"))stop("Didn't find maxImputations")
 if(!is.numeric(maxImputations))stop("maxImputations not numeric")

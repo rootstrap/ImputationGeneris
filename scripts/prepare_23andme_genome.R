@@ -3,8 +3,8 @@ prepare_23andme_genome<-function(path, filename, wd='.')
   # PATH = Full path and file name of input file
   # FILENAME = File name of input file
   # WD = Full path to working directory
-  
   library(tools)
+  source('scripts/custom_functions.R')
   # Set local variables here:
   LOGS <- 'logs/submission/submission_log.txt'
   setwd(wd)
@@ -50,6 +50,7 @@ prepare_23andme_genome<-function(path, filename, wd='.')
   
   ## 5. Checking if it as a Genes for Good file (have to reject those, since it's different genome built)
   check_good4genes(path, uniqueID, LOGS, homeFolder)
+  print("5. Passed Good 4 Genes check")
   
   ## 6. Checking if there is at least 10k lines otherwise imputation is not possible)
   print('6. Checking if there is at least 10k lines otherwise imputation is not possible')
@@ -62,17 +63,17 @@ prepare_23andme_genome<-function(path, filename, wd='.')
   
   #after reformat attempts, perform one more test read and consider
   test_read2(path, uniqueID, LOGS, homeFolder)
+  print('7b. Test reads passed formatting check')
 
-  ###### DO WE NEED THIS??? ######
-  ## COMMENT OUT FOR NOW
   ## 8. Checking that this job has not previously run
-  print("8. Checking that this job has not previously run")
+  print("8. Checking md5checksum & confirm that this job has not previously run")
   this_person_md5sum <- check_md5sum(path, uniqueID, LOGS, homeFolder)
   write(this_person_md5sum,file="misc_files/md5sums.txt",append=TRUE)			
   
-  print("Finalize")
+  print("Finalize...")
   save(uniqueID,filename,file=paste(homeFolder,"variables.rdata",sep=""))
   
   unlink("job_status.txt")
   write.table("Job is ready",file="job_status.txt",col.names=F,row.names=F,quote=F)
+  print("Preprocessing... Success!! Ready for imputation")
 }

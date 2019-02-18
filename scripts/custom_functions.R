@@ -32,7 +32,7 @@ write_log <- function(LOGS, path, uniqueID, homeDir, short_err)
 check_zipped <- function(path, newTempPath, newUnzippedPath, homeFolder, LOGS)
 {
   file.copy(path, newTempPath)	
-  gunzipResults <- unzip(newTempPath,exdir=homeFolder)
+  gunzipResults <- suppressWarnings(unzip(newTempPath,exdir=homeFolder))
   if(length(gunzipResults)==1){ #Its zipped
     file.rename(gunzipResults, newUnzippedPath)		
   } else{ #then it's probably not, check if it is a gz file
@@ -127,7 +127,7 @@ check_md5sum <- function(path, uniqueID, LOGS, homeFolder)
 {
   this_person_md5sum <- md5sum(path)
   info <- file.info("misc_files/md5sums.txt")
-  if (info$size > 1) {
+  if (info$size > 5) {
     all_md5sums <- read.table("misc_files/md5sums.txt",sep="\t",stringsAsFactors = F)[,1]
     if(this_person_md5sum %in% all_md5sums){
       write_log(LOGS, path, uniqueID, homeFolder, 'md5sum_match')

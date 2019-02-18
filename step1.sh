@@ -7,4 +7,6 @@
 file_path=$1
 filename=$2
 
-Rscript scripts/prepare_23andme_genome.R file_path filename > logs/warnings.logs
+echo "Filepath: "$file_path
+echo "Filename: "$filename
+Rscript --vanilla scripts/preprocess-wrapper.R $file_path $filename > logs/warnings.logs
