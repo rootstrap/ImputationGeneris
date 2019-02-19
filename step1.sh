@@ -9,4 +9,4 @@ upload_id=$2
 
 echo "File location: "$file_location
 echo "Upload ID: "$upload_id
-Rscript scripts/download_raw_file.R file_location upload_id > logs/warnings.logs
+Rscript scripts/download_raw_file.R $file_location $upload_id > logs/warnings.logs
