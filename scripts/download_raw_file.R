@@ -4,9 +4,9 @@ download_raw_file<-function(url, upload_id) {
   extension <- tools::file_ext(sub("\\?.+", "", url))
   file_name <- paste('upload_', upload_id, '.', extension, sep="")
   file_path <- paste('raw_files/', file_name, sep="")
-  print("Downloading file")
+  print('Downloading file')
   download.file(url, file_path, quiet=FALSE, cacheOK=TRUE, headers=NULL)
-  print("Download finished")
+  print('Download finished')
   prepare_23andme_genome(file_path, file_name)
-  print("Preparing file format")
+  print('Preparing file format')
 }
