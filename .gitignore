@@ -2,3 +2,6 @@
 /logs
 /tools
 /raw_files
+.RData
+.Rhistory
+job_status.txt
