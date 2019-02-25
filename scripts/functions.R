@@ -8,6 +8,7 @@ source('scripts/custom_functions.R')
 source('scripts/run_imputation.R') 
 source('scripts/special_error_check.R') 
 source('scripts/genes_for_good_cleaner.R') 
+source('scripts/download_raw_file.R')
 
 
 
