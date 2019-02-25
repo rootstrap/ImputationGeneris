@@ -1,4 +1,4 @@
-prepare_23andme_genome<-function(path, filename, wd='.')
+prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
 {
   # PATH = Full path and file name of input file
   # FILENAME = File name of input file
@@ -25,7 +25,8 @@ prepare_23andme_genome<-function(path, filename, wd='.')
   ## Check that generated uniqueID is not found in sample names
   ## If so, stop input file processing and print error
   print("1. Create uniqueID")
-  uniqueID <- create_uniqueID()
+#  uniqueID <- create_uniqueID()
+  uniqueID <- upload_id
   print(paste0('UniqueID: ', uniqueID))
   
   ## 2. Create imputation folder and output data folder
@@ -61,6 +62,7 @@ prepare_23andme_genome<-function(path, filename, wd='.')
   print('7. Running the alternative format converters.')
   test_read(path, uniqueID, LOGS, homeFolder)
   
+  print('7b. Passed test_read')
   #after reformat attempts, perform one more test read and consider
   test_read2(path, uniqueID, LOGS, homeFolder)
   print('7b. Test reads passed formatting check')

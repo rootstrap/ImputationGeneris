@@ -31,6 +31,8 @@ install.packages("openxlsx")
 install.packages("nlme")
 install.packages("R.utils")
 install.packages("mailR")
+install.packages("rJava")
+install.packages("tools")
 q()
 y
 exit

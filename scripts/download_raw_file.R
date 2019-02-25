@@ -10,7 +10,7 @@ download_raw_file<-function(url, upload_id) {
   print('Downloading file')
   download.file(url, file_path, quiet=FALSE, cacheOK=TRUE, headers=NULL)
   print('Download finished')
-  prepare_23andme_genome(file_path, file_name)
+  prepare_23andme_genome(file_path, file_name, upload_id)
   print('Preparing file format')
 }
 
