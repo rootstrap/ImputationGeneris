@@ -33,6 +33,7 @@ install.packages("R.utils")
 install.packages("mailR")
 install.packages("rJava")
 install.packages("tools")
+install.packages("httr")
 q()
 y
 exit
