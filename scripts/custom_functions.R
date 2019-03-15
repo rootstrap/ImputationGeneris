@@ -24,9 +24,8 @@ create_uniqueID <- function()
 # 2. Write errors to log file
 write_log <- function(LOGS, path, uniqueID, homeDir, short_err)
 {
-  m<-c(format(Sys.time(),"%Y-%m-%d-%H-%M-%S"), short_err,uniqueID)
-  m<-paste(m,collapse="\t")
-  write(m,file=LOGS,append=TRUE)
+  message <- paste(short_err, uniqueID)
+  write_logs(LOGS, message)
   unlink(homeDir,recursive=T)
 }
 
@@ -137,4 +136,16 @@ check_md5sum <- function(path, uniqueID, LOGS, homeFolder)
     }
   } else { return(this_person_md5sum)}
   return(this_person_md5sum)
+}
+
+# Generic function to write logs to any file
+write_logs <- function(logs_file, message) {
+  m<-c(format(Sys.time(),"%Y-%m-%d-%H-%M-%S"), message)
+  m<-paste(m, collapse="\t")
+  write(m, file = logs_file, append = TRUE)
+}
+
+exit_on_fail <- function(message) {
+  write_logs(LOGS, message = message)
+  stop(message)
 }
