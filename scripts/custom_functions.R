@@ -1,3 +1,5 @@
+source('scripts/format_ancestry_com_as_23andme.R')
+source('scripts/format_myheritage_as_23andme.R')
 # 1. Create uniqueID
 create_uniqueID <- function() 
 {
@@ -57,7 +59,7 @@ test_read <- function(path, uniqueID, LOGS, homeFolder)
     #This could be an ancestry.com file. Check that first
     testRead2 <- read.table(path,nrow=10,stringsAsFactors=F,header=T)
     snpID <- list('rs','i','d')
-    if(unique(unique(sub("[0-9]+$","",testRead2[,1]))%!in%snpID)){
+    if(unique(unique(sub('[0-9]+$','',testRead2[,1]))%!in%snpID)){
       write_log(LOGS, path, uniqueID, homeFolder, 'ancestry_problem')
       stop(safeError("Your file seemed like ancestry.com data, but didn't have rs IDs in column 1"))
     } 
@@ -85,7 +87,7 @@ test_read2 <- function(path, uniqueID, LOGS, homeFolder) {
     stop(safeError("Your file didn't have 4 columns (or 5 for ancestry.com data). If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection."))
   }
   snpID <- list('rs','i','d')
-  if(unique(unique(sub("[0-9]+$","",testRead2[,1]))%!in%snpID)){
+  if(unique(unique(sub('[0-9]+$','',testRead2[,1]))%!in%snpID)){
     write_log(LOGS, path, uniqueID, homeFolder, 'test_read_no_rs_id')
     stop(safeError("Your file didn't have rs IDs in column 1. If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection."))
   }

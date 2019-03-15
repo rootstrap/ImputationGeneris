@@ -2,12 +2,12 @@ run_imputation<-function(
   uniqueID,
   rawdata, # path to DNA raw data file, in ancestry23 format
   runDir='.', 
-  shapeit="tools/Shapeit/bin/shapeit",
-  plink="tools/Plink/plink",
-  impute2="tools/Impute2/impute2",
+  shapeit="tools/Shapeit",
+  plink="tools/Plink",
+  impute2="tools/Impute2",
   #minimac='tools/Minimac3/bin/Minimac3',
   #mach="tools/Mach/mach1",
-  gtool='tools/Gtool/gtool',
+  gtool='tools/gtool',
   sample_ref="ref/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3.sample"
 )
 {
@@ -32,17 +32,17 @@ run_imputation<-function(
   if(length(plink)!=1)stop(paste("plink must be lengh 1, not",length(plink)))
   if(!file.exists(plink))stop(paste("Did not find plink at path:",plink))
   
-  if(class(mach)!="character")stop(paste("plink must be character, not",class(mach)))
-  if(length(mach)!=1)stop(paste("plink must be lengh 1, not",length(mach)))
-  if(!file.exists(mach))stop(paste("Did not find plink at path:",mach))
+#  if(class(mach)!="character")stop(paste("plink must be character, not",class(mach)))
+#  if(length(mach)!=1)stop(paste("plink must be lengh 1, not",length(mach)))
+#  if(!file.exists(mach))stop(paste("Did not find plink at path:",mach))
   
-  if(class(minimac)!="character")stop(paste("plink must be character, not",class(minimac)))
-  if(length(minimac)!=1)stop(paste("plink must be lengh 1, not",length(minimac)))
-  if(!file.exists(minimac))stop(paste("Did not find plink at path:",minimac))
+#  if(class(minimac)!="character")stop(paste("plink must be character, not",class(minimac)))
+#  if(length(minimac)!=1)stop(paste("plink must be lengh 1, not",length(minimac)))
+#  if(!file.exists(minimac))stop(paste("Did not find plink at path:",minimac))
   
-  if(class(gtool)!="character")stop(paste("plink must be character, not",class(gtool)))
-  if(length(gtool)!=1)stop(paste("plink must be lengh 1, not",length(gtool)))
-  if(!file.exists(gtool))stop(paste("Did not find plink at path:",gtool))
+  if(class(gtool)!="character")stop(paste("gtool must be character, not",class(gtool)))
+  if(length(gtool)!=1)stop(paste("gtool must be lengh 1, not",length(gtool)))
+  if(!file.exists(gtool))stop(paste("Did not find gtool at path:",gtool))
   
   if(class(impute2)!="character")stop(paste("impute2 must be character, not",class(impute2)))
   if(length(impute2)!=1)stop(paste("impute2 must be lengh 1, not",length(impute2)))

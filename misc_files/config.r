@@ -14,6 +14,9 @@ hubAddress <- "172.31.47.91"
 # Change this to your user name for ssh/scp user to your server
 admin <- "ec2-user"
 
+# Points to the Generis API server.
+apiServer <- "https://api.me2pt0.com/api/v1/"
+
 if(!exists("maxImputations"))stop("Didn't find maxImputations")
 if(!is.numeric(maxImputations))stop("maxImputations not numeric")
 if(length(maxImputations)!=1)stop("maxImputations not length 1")
