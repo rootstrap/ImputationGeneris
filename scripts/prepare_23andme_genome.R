@@ -34,8 +34,9 @@ prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
   print("2. Create imputation folder and output data folder")
   homeFolderShort <- paste("imputation_folder",uniqueID,sep="_")
   homeFolder <- paste("imputations/",homeFolderShort,"/",sep="")
+  jobStatusFile <- paste(homeFolder, "job_status.txt", sep="")
   dir.create(homeFolder, recursive=TRUE)
-  write.table("Job is not ready yet",file="job_status.txt",col.names=F,row.names=F,quote=F)
+  write.table("Job is not ready yet",file=jobStatusFile,col.names=F,row.names=F,quote=F)
   
   ## 3. Unzipping (or not) and moving to new place
   print("3. Unzipping (or not) and moving to new place")
@@ -76,7 +77,7 @@ prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
   print("Finalize...")
   save(uniqueID,filename,file=paste(homeFolder,"variables.rdata",sep=""))
   
-  unlink("job_status.txt")
-  write.table("Job is ready",file="job_status.txt",col.names=F,row.names=F,quote=F)
+  unlink(jobStatusFile)
+  write.table("Job is ready",file=jobStatusFile,col.names=F,row.names=F,quote=F)
   print("Preprocessing... Success!! Ready for imputation")
 }

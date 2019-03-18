@@ -34,9 +34,9 @@ if(runningJobCount > (maxImputations-1)){
 
 
 #money saving implementation. If this is hub and there's a job, just send an email an turn on a node server. That way server can run on a small computer
-if(serverRole== "Hub"){
-    stop("Hub running is not currently implemented, but could easily be in the future")
-}
+# if(serverRole== "Hub"){
+#     stop("Hub running is not currently implemented, but could easily be in the future")
+# }
 
 
 #If the computer is not too busy and the serverRole is node - we fetch ONE job
