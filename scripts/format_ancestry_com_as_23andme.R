@@ -7,8 +7,9 @@ format_ancestry_com_as_23andme <- function(path) {
   if(ncol(testRead)!=5) {
     stop("testRead of file didn't have 5 columns (as it should have when invoking ancestry.com conversion)")
   }
+  
   snpID <- list('rs','i','d')
-  if(unique(unique(sub("[0-9]+$","",testRead2[,1]))%!in%snpID)) {
+  if(unique(unique(sub("[0-9]+$","",testRead[,1]))%!in%snpID)) {
     stop(safeError("testRead seemed like ancestry.com data, but didn't have rs IDs in column 1"))
   }
   
