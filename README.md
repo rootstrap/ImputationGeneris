@@ -34,6 +34,7 @@ install.packages("mailR")
 install.packages("rJava")
 install.packages("tools")
 install.packages("httr")
+install.packages("aws.s3")
 q()
 y
 exit

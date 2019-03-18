@@ -1,3 +1,5 @@
+source('misc_files/config.r')
+
 prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
 {
   # PATH = Full path and file name of input file
@@ -6,7 +8,6 @@ prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
   library(tools)
   source('scripts/custom_functions.R')
   # Set local variables here:
-  LOGS <- 'logs/submission/submission_log.txt'
   setwd(wd)
   
   # Check format of input arguments

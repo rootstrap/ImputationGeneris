@@ -1,8 +1,9 @@
 # Ignoring files
-/logs
+/logs/
 /tools
 /imputations
 /raw_files
 .RData
 .Rhistory
+.Renviron
 job_status.txt
