@@ -126,7 +126,7 @@ if(serverRole== "Node"){
 }
 
 #run the imputation
-run_imputation(uniqueID=uniqueID, rawdata=paste(runDir, rawdata,sep="/"), runDir=runDir)
+run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 
 #summarizing files
 summarize_imputation(runDir=runDir,uniqueID=uniqueID,destinationDir="data")

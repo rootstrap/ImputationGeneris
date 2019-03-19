@@ -3,29 +3,28 @@ source("misc_files/config.r")
 run_imputation<-function(
   uniqueID,
   rawdata, # path to DNA raw data file, in ancestry23 format
-  runDir='.', 
-  shapeit="tools/Shapeit",
-  plink="tools/Plink",
-  impute2="tools/Impute2",
+  runDir='.',
+  shapeit=paste0(homePath, "tools/Shapeit"),
+  plink=paste0(homePath, "tools/Plink"),
+  impute2=paste0(homePath, "tools/Impute2"),
   #minimac='tools/Minimac3/bin/Minimac3',
   #mach="tools/Mach/mach1",
-  gtool='tools/gtool',
-  sample_ref="ref/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3.sample"
+  gtool=paste0(homePath, "tools/gtool"),
+  sample_ref=paste0(homePath, "ref/ALL_1000G_phase1integrated_v3_impute/ALL_1000G_phase1integrated_v3.sample")
 )
 {
   library(tools)
 #  library(Mega2R)
-  REF_PATH = 'ref/ALL_1000G_phase1integrated_v3_impute/'
-  setwd(homePath)
-
-  if(class(rawdata)!="character")stop(paste("rawdata must be character, not",class(rawdata)))
-  if(length(rawdata)!=1)stop(paste("rawdata must be lengh 1, not",length(rawdata)))
-  if(!file.exists(rawdata))stop(paste("Did not find rawdata at path:",rawdata))
+  REF_PATH = paste0(homePath, 'ref/ALL_1000G_phase1integrated_v3_impute/')
   
   if(class(runDir)!="character")stop(paste("runDir must be character, not",class(runDir)))
   if(length(runDir)!=1)stop(paste("runDir must be lengh 1, not",length(runDir)))
   if(!file.exists(runDir))stop(paste("Did not find runDir at path:",runDir))
   if(length(grep("/$",runDir))!=0)stop("Please don't use a trailing slash in the runDir")
+
+  if(class(rawdata)!="character")stop(paste("rawdata must be character, not",class(rawdata)))
+  if(length(rawdata)!=1)stop(paste("rawdata must be lengh 1, not",length(rawdata)))
+  if(!file.exists(rawdata))stop(paste("Did not find rawdata at path:",rawdata))
   
   if(class(shapeit)!="character")stop(paste("shapeit must be character, not",class(shapeit)))
   if(length(shapeit)!=1)stop(paste("shapeit must be lengh 1, not",length(shapeit)))
