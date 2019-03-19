@@ -172,9 +172,8 @@ run_imputation<-function(
       end <- start+5e6
       
 ##### SWITCH Impute2 to minimac3      
-      cmd7 <- paste(impute2," -m", REF_PATH, "genetic_map_chr",chr,"_combined_b37.txt -h ", REF_PATH, "ALL_1000G_phase1integrated_v3_chr",chr,"_impute.hap.gz -l ", REF_PATH, "ALL_1000G_phase1integrated_v3_chr",chr,"_impute.legend.gz -known_haps_g step_5_chr",chr,".haps -int ",start," ",end," -Ne 20000 -o step_7_chr",chr,"_",i,sep="")
+      cmd7 <- paste(impute2, " -m ", REF_PATH, "genetic_map_chr",chr,"_combined_b37.txt -h ", REF_PATH, "ALL_1000G_phase1integrated_v3_chr",chr,"_impute.hap.gz -l ", REF_PATH, "ALL_1000G_phase1integrated_v3_chr",chr,"_impute.legend.gz -known_haps_g step_5_chr",chr,".haps -int ",start," ",end," -Ne 20000 -o step_7_chr",chr,"_",i,sep="")
       step_7_log <- system(cmd7)
-      
       
       #test for memory-lack bug (step_7_log will be 137 if killed, otherwise 0)
       if(step_7_log == 137){
