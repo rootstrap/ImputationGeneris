@@ -1,3 +1,5 @@
+source("misc_files/config.r")
+
 run_imputation<-function(
   uniqueID,
   rawdata, # path to DNA raw data file, in ancestry23 format
@@ -14,7 +16,8 @@ run_imputation<-function(
   library(tools)
 #  library(Mega2R)
   REF_PATH = 'ref/ALL_1000G_phase1integrated_v3_impute/'
-  
+  setwd(homePath)
+
   if(class(rawdata)!="character")stop(paste("rawdata must be character, not",class(rawdata)))
   if(length(rawdata)!=1)stop(paste("rawdata must be lengh 1, not",length(rawdata)))
   if(!file.exists(rawdata))stop(paste("Did not find rawdata at path:",rawdata))
@@ -57,9 +60,9 @@ run_imputation<-function(
     genes_for_good_cleaner(uniqueID,runDir)
   }
   
-  
   #Load data using plink 1.9, recode 23andme format into .MAP & .PED format
-  cmd1 <- paste(plink,"--noweb --23file",rawdata,"John Doe --recode --out step_1")
+  cmd1 <- paste(plink, "--noweb --23file", rawdata, uniqueID, uniqueID, "--recode --out step_1")
+  # cmd1 <- paste(plink,"--noweb --23file",rawdata,"John Doe --recode --out step_1")
   out1 <- system(cmd1)
   
   

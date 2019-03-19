@@ -29,6 +29,8 @@ env <- Sys.getenv("ENV")
 # Default logs output
 LOGS <- 'logs/submission/submission_log.txt'
 
+homePath <- Sys.getenv("HOME_PATH")
+
 # Path to S3 output files folder.
 remoteOutputFolder <- paste("/uploads/", env, "/dna_files/imputation_output/", sep = "")
 

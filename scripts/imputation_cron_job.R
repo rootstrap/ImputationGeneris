@@ -114,12 +114,11 @@ if(is.na(imputeThisFolder)){
   stop("No folders were found to be ready for imputation")
 }
 
-
 #If script is still running, it means there was a job ready for imputation - 
 runDir <- paste("imputations/",imputeThisFolder,sep="")
 setwd(runDir)
-load(paste(runDir,"/variables.rdata",sep=""))
-rawdata <- paste(runDir,"/",uniqueID,"_raw_data.txt",sep="")
+load("variables.rdata")
+rawdata <- paste(uniqueID, "_raw_data.txt", sep="")
 
 #if running as node, we also create the output dir already here
 if(serverRole== "Node"){
@@ -127,7 +126,7 @@ if(serverRole== "Node"){
 }
 
 #run the imputation
-run_imputation(rawdata=rawdata, runDir=runDir)
+run_imputation(uniqueID=uniqueID, rawdata=paste(runDir, rawdata,sep="/"), runDir=runDir)
 
 #summarizing files
 summarize_imputation(runDir=runDir,uniqueID=uniqueID,destinationDir="data")

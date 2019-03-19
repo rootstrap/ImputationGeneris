@@ -3,6 +3,8 @@
 /tools
 /imputations
 /raw_files
+ref/
+tmp/
 .RData
 .Rhistory
 .Renviron
