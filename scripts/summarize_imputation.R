@@ -2,8 +2,8 @@ summarize_imputation<-function(
   runDir='.',
   uniqueID,
   destinationDir,
-  gtool='tools/gtool',
-  plink="tools/plink" #note, as of 2015-08-31 this must be plink 1.07, otherwise we get a bug
+  gtool=paste0(homePath, "tools/gtool"),
+  plink=paste0(homePath, "tools/plink") #note, as of 2015-08-31 this must be plink 1.07, otherwise we get a bug
 ){
   if(class(runDir)!="character")stop(paste("runDir must be character, not",class(runDir)))
   if(length(runDir)!=1)stop(paste("runDir must be lengh 1, not",length(runDir)))
@@ -31,7 +31,6 @@ summarize_imputation<-function(
     if(length(list.files(paste0(destinationDir,"/",uniqueID)))>0){
       stop(paste0("The destinationDir '",paste0(destinationDir,"/",uniqueID),"' already exists and has files in it. This is a major unforeseen error")  )
     }
-    
   }
 
   allFiles1 <- list.files(runDir)
@@ -48,9 +47,7 @@ summarize_imputation<-function(
     cmd1 <- paste("cat ",paste(s,collapse=" ")," > ",uniqueID,"_chr",chr,".gen",sep="")
     system(cmd1)
     unlink(s)
-    
-  }	
-  
+  }
   
   genFiles <- paste(uniqueID,"_chr",chromosomes,".gen",sep="")
   if(length(genFiles)==0)stop("Didn't find a single gen-file")
@@ -123,7 +120,6 @@ summarize_imputation<-function(
     unlink(list.files(runDir,pattern=paste0("^step_8_chr",chr),full.names=T))
     unlink(list.files(runDir,pattern=paste0("^step_9_chr",chr),full.names=T))
     unlink(list.files(runDir,pattern=paste0("^step_10_chr",chr),full.names=T))
-    
   }
   
   #preparing destinationDir
@@ -147,9 +143,6 @@ summarize_imputation<-function(
   zipFileOriginal <- paste(runDir,paste(uniqueID,".input_data.zip",sep=""),sep="/")
   zip(zipFileOriginal, paste(uniqueID,"_raw_data.txt",sep=""), flags = "-r9X", extras = "",zip = Sys.getenv("R_ZIPCMD", "zip"))
   file.rename(zipFileOriginal, paste(prepDestinationDir,basename(zipFileOriginal),sep="/"))
-  
-  
-  
   
   #creating the pData file
   load(paste0(runDir,"/variables.rdata"))

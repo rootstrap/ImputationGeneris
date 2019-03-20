@@ -131,7 +131,9 @@ if(serverRole== "Node"){
 run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 
 #summarizing files
-output_files <- summarize_imputation(runDir=runDir,uniqueID=uniqueID,destinationDir="data")
+destination <- "data/"
+dir.create(destination)
+output_files <- summarize_imputation(uniqueID=uniqueID,destinationDir=destination)
 
 #Storing relevant output to S3
 remote_file_location <- upload_output_to_S3(upload_id = uniqueID, local_file_path = output_files[1])
