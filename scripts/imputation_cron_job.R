@@ -11,7 +11,6 @@ library("rJava")
 library("tools")
 source("scripts/functions.R")
 source('misc_files/config.r')
-source("scripts/upload_output_to_S3.R")
 source("scripts/custom_functions.R")
 
 #First checking if node is already at max load (maxImputations)
@@ -131,7 +130,7 @@ if(serverRole== "Node"){
 run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 
 #summarizing files
-destination <- "data/"
+destination <- "data"
 dir.create(destination)
 output_files <- summarize_imputation(uniqueID=uniqueID,destinationDir=destination)
 
@@ -139,7 +138,7 @@ output_files <- summarize_imputation(uniqueID=uniqueID,destinationDir=destinatio
 remote_file_location <- upload_output_to_S3(upload_id = uniqueID, local_file_path = output_files[1])
 if (!is.null(remote_file_location)) {
   full_url <- paste0("https://s3.", region, ".amazonaws.com/", bucketName, remote_file_location)
-  notify_api_after_imputation(upload_id = upload_id, output_url = full_url)
+  notify_api_after_imputation(upload_id = uniqueID, output_url = full_url)
 } else {
   exit_on_fail(paste("Something went wrong uploading to S3:", uniqueID))
 }

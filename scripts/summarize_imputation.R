@@ -3,7 +3,7 @@ summarize_imputation<-function(
   uniqueID,
   destinationDir,
   gtool=paste0(homePath, "tools/gtool"),
-  plink=paste0(homePath, "tools/plink") #note, as of 2015-08-31 this must be plink 1.07, otherwise we get a bug
+  plink=paste0(homePath, "tools/Plink") #note, as of 2015-08-31 this must be plink 1.07, otherwise we get a bug
 ){
   if(class(runDir)!="character")stop(paste("runDir must be character, not",class(runDir)))
   if(length(runDir)!=1)stop(paste("runDir must be lengh 1, not",length(runDir)))
