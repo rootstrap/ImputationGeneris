@@ -14,5 +14,10 @@ upload_output_to_S3 <- function (upload_id, local_file_path) {
   }
   file_name = basename(local_file_path)
   upload_location <- paste(remoteOutputFolder, upload_id, "/", file_name, sep = "")
-  put_object(file = local_file_path, object = upload_location, bucket = bucketName, show_progress = TRUE, verbose = TRUE)
+  result <- put_object(file = local_file_path, object = upload_location, bucket = bucketName, show_progress = TRUE, verbose = TRUE)
+  if (result) {
+    upload_location
+  } else {
+    NULL
+  }
 }
