@@ -1,10 +1,11 @@
 # Set up environment & install software
 ### Run these commands in the root directory of this package
 
-## 1. Make the following directories for output & temp file writing (data & imputations) and storage of imputation software (tools).
+## 1. Make the following directories for output & temp file writing (data & imputations) and storage of imputation software (tools). `done` folder for finished imputation symlinks.
 ```bash
 mkdir data
 mkdir tools
+mkdir done
 mkdir imputations
 ```
 
