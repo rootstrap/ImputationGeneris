@@ -130,7 +130,7 @@ if(serverRole== "Node"){
 run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 
 #summarizing files
-destination <- "data"
+destination <- paste0(homePath, "data")
 dir.create(destination)
 output_files <- summarize_imputation(uniqueID=uniqueID,destinationDir=destination)
 
@@ -149,12 +149,13 @@ if(serverRole== "Node"){
   system(cmd5)
 }
 
+doneProcessFolder <- paste0(homePath, "done/")
 #making a link out to where the data can be retrieved	(different on hub and node)
 if(serverRole== "Node"){
-  cmd6 <- paste("ssh ", admin,"@",hubAddress," 'ln -s data/",uniqueID,"/",uniqueID,".simple_format.zip done/",uniqueID,".simple_format.zip'",sep="")
+  cmd6 <- paste("ssh ", admin,"@",hubAddress," 'ln -s data/",uniqueID,"/",uniqueID,".simple_format.zip ", doneProcessFolder, uniqueID,".simple_format.zip'",sep="")
   system(cmd6)
   
-  cmd7 <- paste("ssh ", admin,"@",hubAddress," 'ln -s data/",uniqueID,"/",uniqueID,".gen.zip done/",uniqueID,".gen.zip'",sep="")
+  cmd7 <- paste("ssh ", admin,"@",hubAddress," 'ln -s data/",uniqueID,"/",uniqueID,".gen.zip", doneProcessFolder, uniqueID,".gen.zip'",sep="")
   system(cmd7)
   
   # cmd8 <- paste("ssh ", admin,"@",hubAddress," 'ln -s data/",uniqueID,"/",uniqueID,"_data.json done/",uniqueID,"_data.json'",sep="")
@@ -163,12 +164,12 @@ if(serverRole== "Node"){
   
 }else if(serverRole== "Hub"){
   file.symlink(
-    from = paste("data/",uniqueID,"/",uniqueID,".simple_format.zip",sep=""),
-    to = paste("done/",uniqueID,".simple_format.zip",sep="")
+    from = paste(destination, "/", uniqueID,"/",uniqueID,".simple_format.zip",sep=""),
+    to = paste(doneProcessFolder, uniqueID,".simple_format.zip",sep="")
   )
   file.symlink(
-    from = paste("data/",uniqueID,"/",uniqueID,".gen.zip",sep=""),
-    to = paste("done/",uniqueID,".gen.zip",sep="")
+    from = paste(destination, "/", uniqueID,"/",uniqueID,".gen.zip",sep=""),
+    to = paste(doneProcessFolder, uniqueID,".gen.zip",sep="")
   )
   # file.symlink(
   #   from = paste("data/",uniqueID,"/",uniqueID,"_data.json",sep=""),
