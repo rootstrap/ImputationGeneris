@@ -177,7 +177,7 @@ if(serverRole== "Node"){
   # )
 }else{stop("very odd")}
 
-setwd("..")
+setwd(homePath)
 unlink(runDir,recursive=TRUE)
 
 
