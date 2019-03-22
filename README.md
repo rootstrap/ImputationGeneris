@@ -1,10 +1,11 @@
 # Set up environment & install software
 ### Run these commands in the root directory of this package
 
-## 1. Make the following directories for output & temp file writing (data & imputations) and storage of imputation software (tools).
+## 1. Make the following directories for output & temp file writing (data & imputations) and storage of imputation software (tools). `done` folder for finished imputation symlinks.
 ```bash
 mkdir data
 mkdir tools
+mkdir done
 mkdir imputations
 ```
 
@@ -94,7 +95,7 @@ cd $VAR
 ## 8. Setup a cron job so imputation is performed every hour (you can change this to occur more or less frequently). Imputation is only performed on files that have been processed after upload.
 ```bash
 crontab -e 
-50 * * * * Rscript scripts/imputation_cron_job.R > misc_files/cron_logs/`date +\%Y\%m\%d\%H\%M\%S`-impute-cron.log 2>&1
+50 * * * * cd ImputationGeneris && /home/ec2-user/R-3.5.2/bin/Rscript scripts/imputation_cron_job.R > logs/cron_logs/`date +\%Y\%m\%d\%H\%M\%S`-impute-cron.log 2>&1
 ```
 
 ## 9. Link file upload to the script 'step1.sh'. This script runs an R script that preprocesses raw DNA data file from 23andme, Ancestry DNA, or My Heritage.
