@@ -179,7 +179,7 @@ if(serverRole== "Node"){
 
 setwd(homePath)
 unlink(runDir,recursive=TRUE)
-
+unlink(paste0("raw_files/upload_", uniqueID, ".*"))
 
 #also clear the hub imputation_folder if running as node
 if(serverRole== "Node"){
