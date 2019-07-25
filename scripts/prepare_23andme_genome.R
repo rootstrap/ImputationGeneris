@@ -68,11 +68,6 @@ prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
   #after reformat attempts, perform one more test read and consider
   test_read2(path, uniqueID, LOGS, homeFolder)
   print('7b. Test reads passed formatting check')
-
-  ## 8. Checking that this job has not previously run
-  print("8. Checking md5checksum & confirm that this job has not previously run")
-  this_person_md5sum <- check_md5sum(path, uniqueID, LOGS, homeFolder)
-  write(this_person_md5sum,file="misc_files/md5sums.txt",append=TRUE)			
   
   print("Finalize...")
   save(uniqueID,filename,file=paste(homeFolder,"variables.rdata",sep=""))
