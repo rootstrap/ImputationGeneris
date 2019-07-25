@@ -1,8 +1,9 @@
 # Ignoring files
-/logs/
+logs/
 /tools
 /imputations
 /raw_files
+/misc_files/md5sums.txt
 ref/
 tmp/
 .RData
