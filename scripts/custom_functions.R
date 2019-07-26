@@ -17,7 +17,7 @@ create_uniqueID <- function()
   if(uniqueID%in%list.files("data/"))
   {
     write_log(LOGS, path, uniqueID, homeDir, 'double_id')
-    stop(safeError("Problem with unique ID generation. Please re-load and try again."))
+    stop("Problem with unique ID generation. Please re-load and try again.")
   } else { return(uniqueID)}
 }
 
@@ -40,7 +40,7 @@ check_zipped <- function(path, newTempPath, newUnzippedPath, homeFolder, LOGS)
     filetype <- system(paste("file ", newTempPath),intern=T)
     if(length(grep("gzip compressed",filetype))==1){
       write_log(LOGS, path, uniqueID, homeFolder, 'gzip_file')
-      stop(safeError("Don't submit gz-files. Only uncompressed text or zip-files. If you already know what a gz file is, this should be easy for you. Please format as tab separated text files."))
+      stop("Don't submit gz-files. Only uncompressed text or zip-files. If you already know what a gz file is, this should be easy for you. Please format as tab separated text files.")
     } else{
       #otherwise just rename
       file.rename(newTempPath, newUnzippedPath)		
@@ -60,7 +60,7 @@ test_read <- function(path, uniqueID, LOGS, homeFolder)
     snpID <- list('rs','i','d')
     if(unique(unique(sub('[0-9]+$','',testRead2[,1]))%!in%snpID)){
       write_log(LOGS, path, uniqueID, homeFolder, 'ancestry_problem')
-      stop(safeError("Your file seemed like ancestry.com data, but didn't have rs IDs in column 1"))
+      stop("Your file seemed like ancestry.com data, but didn't have rs IDs in column 1")
     } 
     else { #ok, this is probably an ancestry.com file. Let's reformat.
       reformat_outcome <- try(format_ancestry_com_as_23andme(path))
@@ -74,7 +74,7 @@ test_read <- function(path, uniqueID, LOGS, homeFolder)
   
   if(class(reformat_outcome)=="try-error"){
     write_log(LOGS, path, uniqueID, homeFolder, 'reformat_error')
-    stop(safeError("Your file didn't seem to match any of our import algorithms. If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection."))
+    stop("Your file didn't seem to match any of our import algorithms. If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection.")
   }
 }
 
@@ -88,7 +88,7 @@ test_read2 <- function(path, uniqueID, LOGS, homeFolder) {
   snpID <- list('rs','i','d')
   if(unique(unique(sub('[0-9]+$','',testRead2[,1]))%!in%snpID)){
     write_log(LOGS, path, uniqueID, homeFolder, 'test_read_no_rs_id')
-    stop(safeError("Your file didn't have rs IDs in column 1. If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection."))
+    stop("Your file didn't have rs IDs in column 1. If you think this data type should be supported, then you are welcome to write an email and attach a snippet of the data for our inspection.")
   }
 }
 
@@ -99,7 +99,7 @@ check_consistent_file <- function(path, uniqueID, LOGS, homeFolder)
   testRead <- try(read.table(path,nrow=10,stringsAsFactors=F))
   if(class(testRead)=="try-error"){
     write_log(LOGS, path, uniqueID, homeFolder, 'general_data_file_problem')
-    stop(safeError("Your file didn't seem like genomic data at all. It must contain many rows, one per SNP, with information about your genotype. Please write an email if you think this is a mistake and that this file format should be supported."))
+    stop("Your file didn't seem like genomic data at all. It must contain many rows, one per SNP, with information about your genotype. Please write an email if you think this is a mistake and that this file format should be supported.")
   }
 }
 
@@ -108,7 +108,7 @@ check_good4genes <- function(path, uniqueID, LOGS, homeFolder)
 {
   if(length(grep("genes for good",tolower(readLines(path,n=2))))>0) {
     write_log(LOGS, path, uniqueID, homeFolder, 'genes_for_good_error')
-    stop(safeError(paste0("Your file seemed to be from Genes for Good. At the moment we can't accept data from Genes for Good because it is made in a different genomic version than other direct-to-consumer data. If you know how to translate to GRCH37-built yourself, you may remove the 'Genes for Good' line in the header and try to resubmit. Otherwise - we are working on a solution.")))
+    stop(paste0("Your file seemed to be from Genes for Good. At the moment we can't accept data from Genes for Good because it is made in a different genomic version than other direct-to-consumer data. If you know how to translate to GRCH37-built yourself, you may remove the 'Genes for Good' line in the header and try to resubmit. Otherwise - we are working on a solution."))
   }
 }
 
@@ -119,7 +119,7 @@ check_numlines <- function(path, uniqueID, LOGS, homeFolder)
   lines <- as.numeric(system(cmd1,intern=T))
   if(lines < 10000){
     write_log(LOGS, path, uniqueID, homeFolder, 'too_few_lines_error')
-    stop(safeError(paste0("Your file only had ", lines," lines. Each line represents a measurement and there are too few measurements to perform imputation. Measurements from a genome-wide microarray are needed. Genome-wide microarray files have many formats and come from many places (23andme, myheritage, ancestry, geneplaza, etc), but they always have hundreds of thousands of measurements")))
+    stop(paste0("Your file only had ", lines," lines. Each line represents a measurement and there are too few measurements to perform imputation. Measurements from a genome-wide microarray are needed. Genome-wide microarray files have many formats and come from many places (23andme, myheritage, ancestry, geneplaza, etc), but they always have hundreds of thousands of measurements"))
   }
 }
 
@@ -132,7 +132,7 @@ check_md5sum <- function(path, uniqueID, LOGS, homeFolder)
     all_md5sums <- read.table("misc_files/md5sums.txt",sep="\t",stringsAsFactors = F)[,1]
     if(this_person_md5sum %in% all_md5sums){
       write_log(LOGS, path, uniqueID, homeFolder, 'md5sum_match')
-      stop(safeError("A person with this genome was already analyzed by the system. Write an email if you wish to clear this flag."))
+      stop("A person with this genome was already analyzed by the system. Write an email if you wish to clear this flag.")
     }
   } else { return(this_person_md5sum)}
   return(this_person_md5sum)

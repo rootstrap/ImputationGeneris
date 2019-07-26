@@ -13,7 +13,7 @@ format_myheritage_as_23andme<-function(path){
   testRead <- read.table(path,nrow=10,stringsAsFactors=F,header=T,sep=",")
   if(ncol(testRead)!=4){stop("testRead of file didn't have 5 columns (as it should have when invoking myheritage conversion)")}
   snpID <- list('rs','i','d')
-  if(unique(unique(sub("[0-9]+$","",testRead2[,1]))%!in%snpID))stop(safeError("testRead seemed like myheritage data, but didn't have rs IDs in column 1"))
+  if(unique(unique(sub("[0-9]+$","",testRead2[,1]))%!in%snpID))stop("testRead seemed like myheritage data, but didn't have rs IDs in column 1")
   
   #inserting # at first rsid palce
   cmd1 <- paste("sed 's/^RSID/#RSID/' ",path," > tempOut0.txt",sep="")

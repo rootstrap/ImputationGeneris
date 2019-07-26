@@ -10,7 +10,7 @@ format_ancestry_com_as_23andme <- function(path) {
   
   snpID <- list('rs','i','d')
   if(unique(unique(sub("[0-9]+$","",testRead[,1]))%!in%snpID)) {
-    stop(safeError("testRead seemed like ancestry.com data, but didn't have rs IDs in column 1"))
+    stop("testRead seemed like ancestry.com data, but didn't have rs IDs in column 1")
   }
   
   #inserting # at first rsid palce
