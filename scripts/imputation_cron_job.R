@@ -5,12 +5,12 @@
 # crontab -u ubuntu -e
 # 50 * * * * Rscript scripts/imputation_cron_job.R > misc_files/cron_logs/`date +\%Y\%m\%d\%H\%M\%S`-impute-cron.log 2>&1
 
-#library("mailR")
 library("rJava")
 library("tools")
 source("scripts/functions.R")
 source('misc_files/config.r')
 source("scripts/custom_functions.R")
+source("scripts/email_sender.R")
 
 #First checking if node is already at max load (maxImputations)
 foldersToCheck <- grep("^imputation_folder",list.files("imputations/"),value=T)
@@ -113,15 +113,20 @@ if(is.na(imputeThisFolder)){
   stop("No folders were found to be ready for imputation")
 }
 
-logs_file <- paste0(homePath, LOGS)
+runDir <- paste("imputations/", imputeThisFolder, sep="")
+setwd(runDir)
+load("variables.rdata")
+rawdata <- paste(uniqueID, "_raw_data.txt", sep="")
+
 # Capturing errors to retry and communicate admins
 tryCatch({
-  single_imputation_run(imputeThisFolder, uniqueID)
+  single_imputation_run(uniqueID, rawdata)
 }, error = function(error_message) {
-  write_logs(logs_file, paste("The imputation process failed. The error was:", error_message, "ID:", uniqueID))
-  setwd(homePath)
-  single_imputation_run(imputeThisFolder, uniqueID)
+  message <- paste("The imputation process failed. The error was:", error_message, "ID:", uniqueID)
+  write_logs(LOGS, message)
+  send_email(paste(message, "Server will retry imputation."))
+  single_imputation_run(uniqueID, rawdata)
 }, warning = function(warning_message) {
-  write_logs(logs_file, paste("The imputation process finished with warnings:", warning_message, "ID:", uniqueID))
+  write_logs(LOGS, paste("The imputation process finished with warnings:", warning_message, "ID:", uniqueID))
   return(TRUE)
 })

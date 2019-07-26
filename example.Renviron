@@ -3,3 +3,6 @@ AWS_SECRET_ACCESS_KEY=mysecretkey
 AWS_DEFAULT_REGION=us-east-1
 AWS_BUCKET_NAME=bucketname
 ENV=development
+ADMIN_EMAIL=admin@email.com
+SENDGRID_USER=apikey
+SENDGRID_API_KEY=test_key

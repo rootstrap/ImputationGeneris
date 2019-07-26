@@ -1,14 +1,9 @@
-single_imputation_run <- function(imputationFolder, uniqueID) {
-  runDir <- paste("imputations/", imputationFolder, sep="")
-  setwd(runDir)
-  load("variables.rdata")
-  rawdata <- paste(uniqueID, "_raw_data.txt", sep="")
-
+single_imputation_run <- function(uniqueID, rawdata) {
   #if running as node, we also create the output dir already here
   if(serverRole== "Node"){
     dir.create(paste("data/",uniqueID,sep=""))
   }
-
+  
   #run the imputation
   run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 

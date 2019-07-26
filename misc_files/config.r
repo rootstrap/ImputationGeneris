@@ -26,10 +26,22 @@ region <- Sys.getenv("AWS_DEFAULT_REGION")
 # Running environment
 env <- Sys.getenv("ENV")
 
-# Default logs output
-LOGS <- 'logs/submission/submission_log.txt'
-
 homePath <- Sys.getenv("HOME_PATH")
+
+get_logs_file <- function() {
+  logs_folder <- paste0(homePath, 'logs/submission/')
+  file_path <- paste0(logs_folder, 'submission_log.txt')
+  if (!dir.exists(logs_folder)) { dir.create(logs_folder, recursive = TRUE) }
+  if (!file.exists(file_path)) { file.create(file_path) }
+  file_path
+} 
+
+# Default logs output
+LOGS <- get_logs_file()
+
+adminRecipient <- Sys.getenv("ADMIN_EMAIL")
+
+emailAddress <- 'generis@imputation-server.com'
 
 # Path to S3 output files folder.
 remoteOutputFolder <- paste("/uploads/", env, "/dna_files/imputation_output/", sep = "")
@@ -65,28 +77,3 @@ if(length(env)!=1)stop("env not length 1")
 
 if(!is.character(remoteOutputFolder))stop("env not character")
 if(length(remoteOutputFolder)!=1)stop("env not length 1")
-
-#if(!exists("email_password"))stop("Didn't find email_password ")
-#if(!is.character(email_password ))stop("email_password  not character")
-#if(length(email_password )!=1)stop("email_password  not length 1")
-#if(!exists("email_address"))stop("Didn't find email_address")
-#if(!is.character(email_address))stop("email_address not character")
-#if(length(email_address)!=1)stop("email_address not length 1")
-#if(!exists("routinely_delete_this"))stop("Didn't find routinely_delete_this")
-#if(!is.character(routinely_delete_this))stop("routinely_delete_this not character")
-#if(!exists("paypal"))stop("Didn't find paypal")
-#if(!is.character(paypal))stop("paypal not character")
-#if(length(paypal)!=1)stop("paypal not length 1")
-
-
-# #DONT NEED
-# email_password <- ''
-# 
-# #DONT NEED
-# email_address <-''
-# 
-# #DONT NEED
-# routinely_delete_this <-''
-# 
-# #DONT NEED
-# paypal <-''
