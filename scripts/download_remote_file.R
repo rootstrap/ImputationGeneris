@@ -1,6 +1,7 @@
 source('scripts/prepare_23andme_genome.R')
 source('misc_files/config.r')
 source("scripts/custom_functions.R")
+source("scripts/email_sender.R")
 
 download_remote_file<-function(url, upload_id) {
   setwd('.')
@@ -15,6 +16,8 @@ download_remote_file<-function(url, upload_id) {
     print('Preparing file format')
     prepare_23andme_genome(file_path, file_name, upload_id)
   }, error = function(error_message) {
-    write_logs(LOGS, paste("File format preparation failed for:", file_name, "The error was:", error_message))
+    message <- paste("File format preparation failed for:", file_name, "The error was:", error_message)
+    write_logs(LOGS, message)
+    send_email(message = message)
   })
 }
