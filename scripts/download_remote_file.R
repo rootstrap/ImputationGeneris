@@ -18,6 +18,6 @@ download_remote_file<-function(url, upload_id) {
   }, error = function(error_message) {
     message <- paste("File format preparation failed for:", file_name, "The error was:", error_message)
     write_logs(LOGS, message)
-    send_email(message)
+    send_email(message = message)
   })
 }

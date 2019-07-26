@@ -9,13 +9,13 @@ maxImputationsInQueue <- 10
 serverRole <- "Hub"
 
 # Change this to your hub IP address for cron job
-hubAddress <- "172.31.47.91"
+hubAddress <- Sys.getenv("HOST_IP")
 
 # Change this to your user name for ssh/scp user to your server
 admin <- "ec2-user"
 
 # Points to the Generis API server.
-apiServer <- "https://api.me2pt0.com/api/v1/"
+apiServer <- Sys.getenv("API_SERVER_URL")
 
 # S3 Bucket name
 bucketName <- Sys.getenv("AWS_BUCKET_NAME")

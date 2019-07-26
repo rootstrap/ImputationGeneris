@@ -1,11 +1,11 @@
 source("misc_files/config.r")
 
 # HTML messages supported
-send_email <- function(recipient = adminRecipient, message) {
+send_email <- function(recipient = adminRecipient, subject = "Imputation process errored", message) {
   library("mailR")
   send.mail(from = emailAddress,
             to = recipient,
-            subject = "Imputation process errored",
+            subject = subject,
             body = message,
             html=T,
             smtp = list(
