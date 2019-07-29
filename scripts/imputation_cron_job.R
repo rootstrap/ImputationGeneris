@@ -126,7 +126,4 @@ tryCatch({
   write_logs(LOGS, message)
   send_email(message = paste(message, "Server will retry imputation."))
   single_imputation_run(uniqueID, rawdata)
-}, warning = function(warning_message) {
-  write_logs(LOGS, paste("The imputation process finished with warnings:", warning_message, "ID:", uniqueID))
-  return(TRUE)
 })
