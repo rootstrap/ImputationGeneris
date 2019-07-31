@@ -17,7 +17,10 @@ sudo apt-get update
 sudo apt-get install r-base-dev
 sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install default-jdk
+sudo apt-get install dos2unix
 ```
+
+Use `sudo yum install <package>` on other Linux distributions.
 
 ## 3. Install R-packages
 ```bash

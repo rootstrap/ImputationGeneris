@@ -112,6 +112,22 @@ check_good4genes <- function(path, uniqueID, LOGS, homeFolder)
   }
 }
 
+# Reformats in place the file at *path* to UNIX standard.
+# Uses dos2unix tool (http://manpages.ubuntu.com/manpages/cosmic/es/man1/dos2unix.1.html)
+convert_file_to_unix <- function(path, uniqueID, LOGS, homeFolder)
+{
+  reformat_from_mac <- paste("dos2unix -c mac", path)
+  reformat_from_dos <- paste("dos2unix", path)
+  tryCatch({
+    system(reformat_from_mac)
+    system(reformat_from_dos)
+  }, error = function(e) {
+    e$message <- paste("File couldn't be reformatted to UNIX standard.", e)
+    write_log(LOGS, path, uniqueID, homeFolder, 'can_not_reformat_file')
+    stop(e)
+  })
+}
+
 # 8. Check that the number of lines of the input files is consistent with genome-wide array
 check_numlines <- function(path, uniqueID, LOGS, homeFolder)
 {

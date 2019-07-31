@@ -54,20 +54,24 @@ prepare_23andme_genome<-function(path, filename, upload_id, wd='.')
   ## 5. Checking if it as a Genes for Good file (have to reject those, since it's different genome built)
   check_good4genes(path, uniqueID, LOGS, homeFolder)
   print("5. Passed Good 4 Genes check")
+
+  ## 6. Removing line endings other than UNIX systems.
+  print("6. Converting file to UNIX format")
+  convert_file_to_unix(path, uniqueID, LOGS, homeFolder)
   
-  ## 6. Checking if there is at least 10k lines otherwise imputation is not possible)
-  print('6. Checking if there is at least 10k lines otherwise imputation is not possible')
+  ## 7. Checking if there is at least 10k lines otherwise imputation is not possible)
+  print('7. Checking if there is at least 10k lines otherwise imputation is not possible')
   check_numlines(path, uniqueID, LOGS, homeFolder)
 
   ### REFORMAT INPUT FILE if in alternative format   
-  ## 7. Running the alternative format converters.
-  print('7. Running the alternative format converters.')
+  ## 8. Running the alternative format converters.
+  print('8. Running the alternative format converters.')
   test_read(path, uniqueID, LOGS, homeFolder)
   
-  print('7b. Passed test_read')
+  print('8b. Passed test_read')
   #after reformat attempts, perform one more test read and consider
   test_read2(path, uniqueID, LOGS, homeFolder)
-  print('7b. Test reads passed formatting check')
+  print('8b. Test reads passed formatting check')
   
   print("Finalize...")
   save(uniqueID,filename,file=paste(homeFolder,"variables.rdata",sep=""))
