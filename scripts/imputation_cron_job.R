@@ -124,6 +124,7 @@ tryCatch({
 }, error = function(error_message) {
   message <- paste("The imputation process failed. The error was:", error_message, "ID:", uniqueID)
   write_logs(LOGS, message)
+  notify_failed_imputation(uniqueID, error_message = message)
   send_email(message = paste(message, "Server will retry imputation."))
   single_imputation_run(uniqueID, rawdata)
 })

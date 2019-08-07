@@ -2,6 +2,7 @@ source('scripts/prepare_23andme_genome.R')
 source('misc_files/config.r')
 source("scripts/custom_functions.R")
 source("scripts/email_sender.R")
+source('scripts/api_status_updates.R')
 
 download_remote_file<-function(url, upload_id) {
   setwd('.')
@@ -15,9 +16,11 @@ download_remote_file<-function(url, upload_id) {
     print('Download finished')
     print('Preparing file format')
     prepare_23andme_genome(file_path, file_name, upload_id)
+    notify_imputation_status(upload_id, status = imputationStatus$pending)
   }, error = function(error_message) {
     message <- paste("File format preparation failed for:", file_name, "The error was:", error_message)
     write_logs(LOGS, message)
+    notify_failed_imputation(upload_id, error_message = message)
     send_email(message = message)
   })
 }
