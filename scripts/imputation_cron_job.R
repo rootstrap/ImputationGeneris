@@ -118,12 +118,21 @@ setwd(runDir)
 load("variables.rdata")
 rawdata <- paste(uniqueID, "_raw_data.txt", sep="")
 
+captured_imputation_error <- function(failure_reason) {
+  message <- paste(failure_reason, "ID:", uniqueID)
+  write_logs(LOGS, message)
+  notify_failed_imputation(uniqueID, error_message = message)
+  send_email(message = message)
+}
+
 # Capturing errors to retry and communicate admins
 tryCatch({
   single_imputation_run(uniqueID, rawdata)
 }, error = function(error_message) {
-  message <- paste("The imputation process failed. The error was:", error_message, "ID:", uniqueID)
-  write_logs(LOGS, message)
-  send_email(message = paste(message, "Server will retry imputation."))
-  single_imputation_run(uniqueID, rawdata)
+  captured_imputation_error(paste("The imputation process failed. The error was:", error_message))
+  tryCatch({
+    single_imputation_run(uniqueID, rawdata)
+  }, error = function(error_message) {
+    captured_imputation_error(paste("The imputation process failed its 2nd attempt. The error was:", error_message))
+  })
 })

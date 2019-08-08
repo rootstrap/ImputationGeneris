@@ -1,5 +1,5 @@
 source('misc_files/config.r')
-source('scripts/notify_api_after_imputation.R')
+source('scripts/api_status_updates.R')
 source('scripts/custom_functions.R')
 
 upload_output_to_S3 <- function (upload_id, local_file_path) {

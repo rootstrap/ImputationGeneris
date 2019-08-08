@@ -28,6 +28,8 @@ env <- Sys.getenv("ENV")
 
 homePath <- Sys.getenv("HOME_PATH")
 
+imputationStatus <- list(no_file = 0, pending = 1, processing = 2, finished = 3, failed = 4)
+
 get_logs_file <- function() {
   logs_folder <- paste0(homePath, 'logs/submission/')
   file_path <- paste0(logs_folder, 'submission_log.txt')

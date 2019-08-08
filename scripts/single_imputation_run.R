@@ -3,7 +3,9 @@ single_imputation_run <- function(uniqueID, rawdata) {
   if(serverRole== "Node"){
     dir.create(paste("data/",uniqueID,sep=""))
   }
-  
+
+  notify_imputation_status(uniqueID, status = imputationStatus$processing)
+
   #run the imputation
   run_imputation(uniqueID=uniqueID, rawdata=rawdata)
 
@@ -16,7 +18,7 @@ single_imputation_run <- function(uniqueID, rawdata) {
   remote_file_location <- upload_output_to_S3(upload_id = uniqueID, local_file_path = output_files[1])
   if (!is.null(remote_file_location)) {
     full_url <- paste0("https://s3.", region, ".amazonaws.com/", bucketName, remote_file_location)
-    notify_api_after_imputation(upload_id = uniqueID, output_url = full_url)
+    notify_finished_imputation(upload_id = uniqueID, output_url = full_url)
   } else {
     exit_on_fail(paste("Something went wrong uploading to S3:", uniqueID))
   }
